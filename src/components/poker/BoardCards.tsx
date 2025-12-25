@@ -64,7 +64,7 @@ export function BoardCards({ cards, usedCards, onUpdateCards }: BoardCardsProps)
     : usedCards;
 
   return (
-    <div className="rounded-lg border-2 border-poker-table-border p-4 poker-gradient">
+    <div className="rounded-lg border-2 border-green-500 p-4 bg-white">
       <div className="flex items-center justify-between mb-3">
         <h3 className="font-semibold text-foreground">קלפים משותפים</h3>
         {cards.length > 0 && (
