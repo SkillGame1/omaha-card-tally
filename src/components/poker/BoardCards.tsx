@@ -16,9 +16,9 @@ export function BoardCards({ cards, usedCards, onUpdateCards }: BoardCardsProps)
   const [selectedSlot, setSelectedSlot] = useState<number | null>(null);
 
   const boardSlots = [
-    { label: 'Flop', indices: [0, 1, 2] },
-    { label: 'Turn', indices: [3] },
-    { label: 'River', indices: [4] },
+    { label: 'פלופ', indices: [0, 1, 2] },
+    { label: 'טרן', indices: [3] },
+    { label: 'ריבר', indices: [4] },
   ];
 
   const handleCardClick = (index: number) => {
@@ -62,7 +62,7 @@ export function BoardCards({ cards, usedCards, onUpdateCards }: BoardCardsProps)
   return (
     <div className="rounded-lg border-2 border-poker-table-border p-4 poker-gradient">
       <div className="flex items-center justify-between mb-3">
-        <h3 className="font-semibold text-foreground">Board</h3>
+        <h3 className="font-semibold text-foreground">קלפים משותפים</h3>
         {cards.length > 0 && (
           <Button
             variant="ghost"
@@ -70,7 +70,7 @@ export function BoardCards({ cards, usedCards, onUpdateCards }: BoardCardsProps)
             className="h-7 text-muted-foreground hover:text-destructive"
             onClick={handleClear}
           >
-            <Trash2 className="h-3 w-3 mr-1" />
+            <Trash2 className="h-3 w-3 ml-1" />
             נקה
           </Button>
         )}
@@ -93,7 +93,7 @@ export function BoardCards({ cards, usedCards, onUpdateCards }: BoardCardsProps)
                     {card && (
                       <button
                         onClick={(e) => handleRemoveCard(index, e)}
-                        className="absolute -top-1 -right-1 w-5 h-5 bg-destructive rounded-full 
+                        className="absolute -top-1 -left-1 w-5 h-5 bg-destructive rounded-full 
                                  flex items-center justify-center opacity-0 group-hover:opacity-100 
                                  transition-opacity text-destructive-foreground"
                       >

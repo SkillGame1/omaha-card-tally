@@ -142,7 +142,7 @@ export function PlayerHand({
             {card && (
               <button
                 onClick={(e) => handleRemoveCard(index, e)}
-                className="absolute -top-1 -right-1 w-4 h-4 bg-destructive rounded-full 
+                className="absolute -top-1 -left-1 w-4 h-4 bg-destructive rounded-full 
                          flex items-center justify-center opacity-0 group-hover:opacity-100 
                          transition-opacity text-destructive-foreground"
               >
@@ -157,11 +157,11 @@ export function PlayerHand({
       {hasEquity && (
         <div className="mt-3 flex flex-col gap-1 text-sm">
           <div className="flex items-center gap-2">
-            <span className="text-muted-foreground">Win:</span>
+            <span className="text-muted-foreground">זכייה:</span>
             <span className="font-bold text-primary">{player.winEquity.toFixed(2)}%</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-muted-foreground">Tie:</span>
+            <span className="text-muted-foreground">תיקו:</span>
             <span className="font-medium text-muted-foreground">{player.tieEquity.toFixed(2)}%</span>
           </div>
         </div>

@@ -7,9 +7,9 @@ interface VariantTabsProps {
 }
 
 const variants: { id: OmahaVariant; label: string; cards: number }[] = [
-  { id: 'PLO4', label: '4-Card PLO', cards: 4 },
-  { id: 'PLO5', label: '5-Card PLO', cards: 5 },
-  { id: 'PLO6', label: '6-Card PLO', cards: 6 },
+  { id: 'PLO4', label: 'PLO 4 קלפים', cards: 4 },
+  { id: 'PLO5', label: 'PLO 5 קלפים', cards: 5 },
+  { id: 'PLO6', label: 'PLO 6 קלפים', cards: 6 },
 ];
 
 export function VariantTabs({ variant, onChange }: VariantTabsProps) {
