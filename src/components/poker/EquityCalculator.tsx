@@ -145,7 +145,7 @@ export function EquityCalculator() {
       {/* Board */}
       <BoardCards
         cards={boardCards}
-        usedCards={usedCards.filter((c) => !boardCards.some((b) => cardsEqual(b, c)))}
+        usedCards={usedCards}
         onUpdateCards={setBoardCards}
       />
 
@@ -166,7 +166,7 @@ export function EquityCalculator() {
               player={player}
               variant={variant}
               playerIndex={index}
-              usedCards={usedCards.filter((c) => !player.cards.some((pc) => cardsEqual(pc, c)))}
+              usedCards={usedCards}
               onUpdateCards={(cards) => updatePlayerCards(player.id, cards)}
               onRemove={() => removePlayer(player.id)}
               canRemove={players.length > 2}
