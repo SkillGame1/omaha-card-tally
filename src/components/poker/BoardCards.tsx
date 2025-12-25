@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Card } from '@/lib/poker/types';
+import { Card, cardsEqual } from '@/lib/poker/types';
 import { PlayingCard } from './PlayingCard';
 import { CardPicker } from './CardPicker';
 import { Button } from '@/components/ui/button';
@@ -58,6 +58,10 @@ export function BoardCards({ cards, usedCards, onUpdateCards }: BoardCardsProps)
   const handleClear = () => {
     onUpdateCards([]);
   };
+  const currentSlotCard = selectedSlot !== null ? (cards[selectedSlot] ?? null) : null;
+  const pickerUsedCards = currentSlotCard
+    ? usedCards.filter((c) => !cardsEqual(c, currentSlotCard))
+    : usedCards;
 
   return (
     <div className="rounded-lg border-2 border-poker-table-border p-4 poker-gradient">
@@ -112,7 +116,7 @@ export function BoardCards({ cards, usedCards, onUpdateCards }: BoardCardsProps)
         open={pickerOpen}
         onClose={() => setPickerOpen(false)}
         onSelect={handleCardSelect}
-        usedCards={usedCards}
+        usedCards={pickerUsedCards}
         title={`בורד - קלף ${(selectedSlot ?? 0) + 1}/5`}
         currentSlot={selectedSlot ?? 0}
         totalSlots={5}

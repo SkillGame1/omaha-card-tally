@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Player, Card, OmahaVariant, VARIANT_CARDS } from '@/lib/poker/types';
+import { Player, Card, OmahaVariant, VARIANT_CARDS, cardsEqual } from '@/lib/poker/types';
 import { PlayingCard } from './PlayingCard';
 import { CardPicker } from './CardPicker';
 import { Button } from '@/components/ui/button';
@@ -53,6 +53,11 @@ export function PlayerHand({
   while (cards.length < numCards) {
     cards.push(null);
   }
+
+  const currentSlotCard = selectedSlot !== null ? cards[selectedSlot] : null;
+  const pickerUsedCards = currentSlotCard
+    ? usedCards.filter((c) => !cardsEqual(c, currentSlotCard))
+    : usedCards;
 
   const handleCardClick = (index: number) => {
     setSelectedSlot(index);
@@ -171,7 +176,7 @@ export function PlayerHand({
         open={pickerOpen}
         onClose={() => setPickerOpen(false)}
         onSelect={handleCardSelect}
-        usedCards={usedCards}
+        usedCards={pickerUsedCards}
         title={`שחקן ${playerIndex + 1} - קלף ${(selectedSlot ?? 0) + 1}/${numCards}`}
         currentSlot={selectedSlot ?? 0}
         totalSlots={numCards}
