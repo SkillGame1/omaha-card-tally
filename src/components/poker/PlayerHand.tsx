@@ -64,6 +64,20 @@ export function PlayerHand({
       const newCards = [...cards];
       newCards[selectedSlot] = card;
       onUpdateCards(newCards.slice(0, numCards));
+      
+      // Move to next empty slot or close if all filled
+      const nextEmptySlot = newCards.findIndex((c, i) => i > selectedSlot && c === null);
+      if (nextEmptySlot !== -1 && nextEmptySlot < numCards) {
+        setSelectedSlot(nextEmptySlot);
+      } else {
+        // Check if there are any empty slots before current
+        const firstEmptySlot = newCards.findIndex((c, i) => c === null && i !== selectedSlot);
+        if (firstEmptySlot !== -1 && firstEmptySlot < numCards) {
+          setSelectedSlot(firstEmptySlot);
+        } else {
+          setPickerOpen(false);
+        }
+      }
     }
   };
 
@@ -157,7 +171,9 @@ export function PlayerHand({
         onClose={() => setPickerOpen(false)}
         onSelect={handleCardSelect}
         usedCards={usedCards}
-        title={`שחקן ${playerIndex + 1} - קלף ${(selectedSlot ?? 0) + 1}`}
+        title={`שחקן ${playerIndex + 1} - קלף ${(selectedSlot ?? 0) + 1}/${numCards}`}
+        currentSlot={selectedSlot ?? 0}
+        totalSlots={numCards}
       />
     </div>
   );

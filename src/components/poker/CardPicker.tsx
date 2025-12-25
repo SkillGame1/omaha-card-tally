@@ -8,16 +8,26 @@ interface CardPickerProps {
   onSelect: (card: Card) => void;
   usedCards: Card[];
   title?: string;
+  currentSlot?: number;
+  totalSlots?: number;
 }
 
-export function CardPicker({ open, onClose, onSelect, usedCards, title = 'בחר קלף' }: CardPickerProps) {
+export function CardPicker({ 
+  open, 
+  onClose, 
+  onSelect, 
+  usedCards, 
+  title = 'בחר קלף',
+  currentSlot,
+  totalSlots 
+}: CardPickerProps) {
   const isCardUsed = (card: Card) => usedCards.some(c => cardsEqual(c, card));
 
   const handleSelect = (rank: Rank, suit: Suit) => {
     const card = { rank, suit };
     if (!isCardUsed(card)) {
       onSelect(card);
-      onClose();
+      // Don't close - let parent handle navigation
     }
   };
 
