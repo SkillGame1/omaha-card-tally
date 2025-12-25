@@ -58,19 +58,17 @@ function evaluateFiveCards(cards: Card[]): EvaluatedHand {
   
   const uniqueValues = [...new Set(values)].sort((a, b) => b - a);
   
-  if (uniqueValues.length >= 5) {
-    // Regular straight check
-    for (let i = 0; i <= uniqueValues.length - 5; i++) {
-      if (uniqueValues[i] - uniqueValues[i + 4] === 4) {
-        isStraight = true;
-        straightHighCard = uniqueValues[i];
-        break;
-      }
+  // Check for 5 consecutive cards
+  if (uniqueValues.length === 5) {
+    // Regular straight check - all 5 cards must be consecutive
+    if (uniqueValues[0] - uniqueValues[4] === 4) {
+      isStraight = true;
+      straightHighCard = uniqueValues[0];
     }
     
     // Wheel straight (A-2-3-4-5)
-    if (!isStraight && uniqueValues.includes(14) && uniqueValues.includes(2) && 
-        uniqueValues.includes(3) && uniqueValues.includes(4) && uniqueValues.includes(5)) {
+    if (!isStraight && uniqueValues[0] === 14 && uniqueValues[1] === 5 && 
+        uniqueValues[2] === 4 && uniqueValues[3] === 3 && uniqueValues[4] === 2) {
       isStraight = true;
       straightHighCard = 5;
     }
