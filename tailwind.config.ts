@@ -13,6 +13,9 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -57,6 +60,28 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        poker: {
+          table: "hsl(var(--poker-table))",
+          "table-border": "hsl(var(--poker-table-border))",
+          felt: "hsl(var(--poker-felt))",
+        },
+        "card-red": "hsl(var(--card-red))",
+        "card-black": "hsl(var(--card-black))",
+        "card-bg": "hsl(var(--card-bg))",
+        "card-border": "hsl(var(--card-border))",
+        equity: {
+          win: "hsl(var(--equity-win))",
+          tie: "hsl(var(--equity-tie))",
+          lose: "hsl(var(--equity-lose))",
+        },
+        player: {
+          1: "hsl(var(--player-1))",
+          2: "hsl(var(--player-2))",
+          3: "hsl(var(--player-3))",
+          4: "hsl(var(--player-4))",
+          5: "hsl(var(--player-5))",
+          6: "hsl(var(--player-6))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -65,25 +90,27 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        "card-deal": {
+          "0%": { opacity: "0", transform: "translateY(-20px) rotateY(90deg)" },
+          "100%": { opacity: "1", transform: "translateY(0) rotateY(0)" },
+        },
+        "pulse-glow": {
+          "0%, 100%": { boxShadow: "0 0 5px hsl(var(--primary) / 0.3)" },
+          "50%": { boxShadow: "0 0 20px hsl(var(--primary) / 0.6)" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "card-deal": "card-deal 0.3s ease-out",
+        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
       },
     },
   },
