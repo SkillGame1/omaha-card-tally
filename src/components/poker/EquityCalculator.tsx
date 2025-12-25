@@ -190,7 +190,7 @@ export function EquityCalculator() {
           ) : (
             <>
               <Calculator className="h-4 w-4" />
-              חשב Equity
+              חשב
             </>
           )}
         </Button>
