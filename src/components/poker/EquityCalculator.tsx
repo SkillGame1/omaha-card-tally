@@ -5,8 +5,7 @@ import { VariantTabs } from './VariantTabs';
 import { PlayerHand } from './PlayerHand';
 import { BoardCards } from './BoardCards';
 import { Button } from '@/components/ui/button';
-import { Plus, Calculator, RotateCcw, Loader2 } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
+import { Plus, RotateCcw, Loader2 } from 'lucide-react';
 
 const createEmptyPlayer = (id: number, numCards: number): Player => ({
   id,
@@ -25,7 +24,6 @@ export function EquityCalculator() {
   const [boardCards, setBoardCards] = useState<Card[]>([]);
   const [isCalculating, setIsCalculating] = useState(false);
   const [simulationCount, setSimulationCount] = useState(0);
-  const { toast } = useToast();
 
   // Get all used cards
   const usedCards: Card[] = [
@@ -53,11 +51,6 @@ export function EquityCalculator() {
   // Add player
   const addPlayer = () => {
     if (players.length >= 6) {
-      toast({
-        title: 'מקסימום שחקנים',
-        description: 'ניתן להוסיף עד 6 שחקנים',
-        variant: 'destructive',
-      });
       return;
     }
     const numCards = VARIANT_CARDS[variant];
@@ -68,11 +61,6 @@ export function EquityCalculator() {
   // Remove player
   const removePlayer = (playerId: number) => {
     if (players.length <= 2) {
-      toast({
-        title: 'מינימום שחקנים',
-        description: 'חייבים לפחות 2 שחקנים',
-        variant: 'destructive',
-      });
       return;
     }
     setPlayers(prev => prev.filter(p => p.id !== playerId));
@@ -85,19 +73,14 @@ export function EquityCalculator() {
     ));
   };
 
-  // Calculate equity
-  const calculate = useCallback(async () => {
+  // Calculate equity automatically
+  const calculate = useCallback(() => {
     // Check if at least 2 players have complete hands
     const completePlayers = players.filter(p => 
       p.cards.every(c => c !== null) && p.cards.length === VARIANT_CARDS[variant]
     );
 
     if (completePlayers.length < 2) {
-      toast({
-        title: 'חסרים קלפים',
-        description: 'נדרשים לפחות 2 שחקנים עם יד מלאה',
-        variant: 'destructive',
-      });
       return;
     }
 
@@ -119,13 +102,19 @@ export function EquityCalculator() {
       
       setSimulationCount(result.simulations);
       setIsCalculating(false);
-      
-      toast({
-        title: 'החישוב הושלם',
-        description: `${result.simulations.toLocaleString()} סימולציות`,
-      });
     }, 50);
-  }, [players, boardCards, variant, toast]);
+  }, [players, boardCards, variant]);
+
+  // Auto-calculate when cards change
+  useEffect(() => {
+    const completePlayers = players.filter(p => 
+      p.cards.every(c => c !== null) && p.cards.length === VARIANT_CARDS[variant]
+    );
+    
+    if (completePlayers.length >= 2) {
+      calculate();
+    }
+  }, [players.map(p => p.cards.map(c => c ? `${c.rank}${c.suit}` : 'null').join(',')).join('|'), boardCards.map(c => `${c.rank}${c.suit}`).join(','), variant]);
 
   // Reset everything
   const reset = () => {
@@ -189,7 +178,7 @@ export function EquityCalculator() {
       </div>
 
       {/* Actions */}
-      <div className="flex gap-3 justify-center">
+      <div className="flex gap-3 justify-center items-center">
         <Button
           variant="outline"
           onClick={reset}
@@ -198,23 +187,12 @@ export function EquityCalculator() {
           <RotateCcw className="h-4 w-4" />
           איפוס
         </Button>
-        <Button
-          onClick={calculate}
-          disabled={isCalculating}
-          className="gap-2 min-w-[140px]"
-        >
-          {isCalculating ? (
-            <>
-              <Loader2 className="h-4 w-4 animate-spin" />
-              מחשב...
-            </>
-          ) : (
-            <>
-              <Calculator className="h-4 w-4" />
-              חשב Equity
-            </>
-          )}
-        </Button>
+        {isCalculating && (
+          <div className="flex items-center gap-2 text-muted-foreground">
+            <Loader2 className="h-4 w-4 animate-spin" />
+            <span>מחשב...</span>
+          </div>
+        )}
       </div>
 
       {/* Results info */}
