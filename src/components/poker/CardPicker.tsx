@@ -52,11 +52,15 @@ export function CardPicker({
                     onClick={() => handleSelect(rank, suit)}
                     disabled={used}
                     className={cn(
-                      'w-8 h-11 rounded-sm bg-card-bg border border-card-border',
+                      'w-8 h-11 rounded-sm border',
                       'flex flex-col items-center justify-center text-xs font-bold',
-                      'transition-all duration-150 hover:scale-110 hover:shadow-lg',
-                      color === 'red' ? 'text-card-red' : 'text-card-black',
-                      used && 'opacity-20 cursor-not-allowed hover:scale-100 hover:shadow-none'
+                      'transition-all duration-150',
+                      used 
+                        ? 'bg-muted/50 border-muted text-muted-foreground/30 cursor-not-allowed line-through'
+                        : cn(
+                            'bg-card-bg border-card-border hover:scale-110 hover:shadow-lg',
+                            color === 'red' ? 'text-card-red' : 'text-card-black'
+                          )
                     )}
                   >
                     <span>{rank}</span>
