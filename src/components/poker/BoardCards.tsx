@@ -28,14 +28,24 @@ export function BoardCards({ cards, usedCards, onUpdateCards }: BoardCardsProps)
 
   const handleCardSelect = (card: Card) => {
     if (selectedSlot !== null) {
-      const newCards = [...cards];
-      // Fill in any gaps with null
-      while (newCards.length <= selectedSlot) {
-        newCards.push(null as any);
-      }
+      const newCards: (Card | null)[] = [null, null, null, null, null];
+      cards.forEach((c, i) => { newCards[i] = c; });
       newCards[selectedSlot] = card;
-      // Remove nulls at the end
-      onUpdateCards(newCards.filter(c => c !== null));
+      onUpdateCards(newCards.filter((c): c is Card => c !== null));
+      
+      // Move to next empty slot or close if all filled
+      const nextEmptySlot = newCards.findIndex((c, i) => i > selectedSlot && c === null);
+      if (nextEmptySlot !== -1 && nextEmptySlot < 5) {
+        setSelectedSlot(nextEmptySlot);
+      } else {
+        // Check if there are any empty slots before current
+        const firstEmptySlot = newCards.findIndex((c, i) => c === null && i !== selectedSlot);
+        if (firstEmptySlot !== -1 && firstEmptySlot < 5) {
+          setSelectedSlot(firstEmptySlot);
+        } else {
+          setPickerOpen(false);
+        }
+      }
     }
   };
 
@@ -103,7 +113,9 @@ export function BoardCards({ cards, usedCards, onUpdateCards }: BoardCardsProps)
         onClose={() => setPickerOpen(false)}
         onSelect={handleCardSelect}
         usedCards={usedCards}
-        title="בחר קלף לבורד"
+        title={`בורד - קלף ${(selectedSlot ?? 0) + 1}/5`}
+        currentSlot={selectedSlot ?? 0}
+        totalSlots={5}
       />
     </div>
   );
