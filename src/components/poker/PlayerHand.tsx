@@ -94,7 +94,7 @@ export function PlayerHand({
 
   const hasCards = cards.some(c => c !== null);
   const filledCards = cards.filter(c => c !== null).length;
-  const equityDisplay = player.equity > 0 ? `${player.equity.toFixed(1)}%` : '-';
+  const hasEquity = player.winEquity > 0 || player.tieEquity > 0;
 
   return (
     <div className={cn(
@@ -108,9 +108,6 @@ export function PlayerHand({
           <span className="text-sm text-muted-foreground">({filledCards}/{numCards})</span>
         </div>
         <div className="flex items-center gap-2">
-          {player.equity > 0 && (
-            <span className="text-lg font-bold text-primary">{equityDisplay}</span>
-          )}
           {hasCards && (
             <Button
               variant="ghost"
@@ -156,13 +153,17 @@ export function PlayerHand({
         ))}
       </div>
 
-      {/* Equity bar */}
-      {player.equity > 0 && (
-        <div className="mt-2 h-2 bg-muted rounded-full overflow-hidden">
-          <div
-            className="h-full bg-primary transition-all duration-500"
-            style={{ width: `${Math.min(player.equity, 100)}%` }}
-          />
+      {/* Win/Tie Display */}
+      {hasEquity && (
+        <div className="mt-3 flex flex-col gap-1 text-sm">
+          <div className="flex items-center gap-2">
+            <span className="text-muted-foreground">Win:</span>
+            <span className="font-bold text-primary">{player.winEquity.toFixed(2)}%</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-muted-foreground">Tie:</span>
+            <span className="font-medium text-muted-foreground">{player.tieEquity.toFixed(2)}%</span>
+          </div>
         </div>
       )}
 
