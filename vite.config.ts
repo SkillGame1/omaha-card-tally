@@ -5,6 +5,9 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
+  // קריטי: שורה זו מגדירה למחשבון שהוא יושב בתוך תיקייה פנימית בשרת
+  base: "/wp-content/omaha-calc/",
+
   server: {
     host: "::",
     port: 8080,
