@@ -1,67 +1,63 @@
-/* --- FORCE OVERRIDE POKER THEME --- */
+/* --- SKILL GAME FINAL OVERRIDE (App.css) --- */
 
-@layer utilities {
-  /* 1. רקע כללי של כל האפליקציה */
-  body, #root, .min-h-screen, .bg-background {
-    background-color: #1e1e1e !important;
-    color: #ffffff !important;
-  }
-
-  /* 2. כפתורים - דריסה אגרסיבית */
-  button, 
-  .button, 
-  [role="button"],
-  button[class*="bg-"] {
-    background-color: #d94040 !important;
-    background-image: none !important;
-    color: white !important;
-    border: none !important;
-    border-radius: 8px !important;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.3) !important;
-    text-transform: uppercase;
-    font-weight: bold;
-    opacity: 1 !important;
-  }
-
-  /* 3. שדות קלט */
-  input, select, .input {
-    background-color: #333 !important;
-    border: 1px solid #555 !important;
-    color: white !important;
-    border-radius: 6px !important;
-  }
-
-  /* 4. קלפים - מסגרת לבנה */
-  img[alt*="card"], img[src*="card"], .card-image { 
-    border: 2px solid white !important;
-    border-radius: 6px !important;
-    background: white !important;
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.5) !important;
-  }
-  
-  /* הסתרת כותרות ברירת מחדל אם יש */
-  h1, h2 {
-    color: white !important;
-  }
+/* 1. כפיית צבע רקע כהה על כל האפליקציה */
+:root, html, body, #root {
+  background-color: #1e1e1e !important;
+  color: #ffffff !important;
+  font-family: 'Assistant', sans-serif, system-ui;
 }
 
-/* 5. תיקון מובייל - הכרח לתצוגת טור */
+/* 2. כפתורים - צביעה באדום המותג */
+button {
+  background-color: #d94040 !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3) !important;
+  text-transform: uppercase;
+}
+
+button:hover {
+  background-color: #b93030 !important;
+}
+
+/* 3. שדות קלט - התאמה לרקע כהה */
+input, select {
+  background-color: #333333 !important;
+  border: 1px solid #555555 !important;
+  color: #ffffff !important;
+  border-radius: 6px !important;
+  padding: 8px !important;
+}
+
+/* 4. קלפים - רקע לבן ומסגרת */
+img[alt*="card"], img[src*="card"] {
+  background-color: #ffffff !important;
+  padding: 2px !important;
+  border-radius: 4px !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4) !important;
+}
+
+/* 5. תיקון מובייל - סידור הטורים */
 @media (max-width: 768px) {
-  /* מפרק כל שורה שמתנהגת כמו Flex */
-  div[class*="flex-row"], div[class*="grid-cols"] {
+  /* מפרק את המבנה לטור אחד */
+  .flex-row, .grid, [class*="grid-cols"] {
     display: flex !important;
     flex-direction: column !important;
-    gap: 15px !important;
+    width: 100% !important;
   }
-  
-  /* מקטין את הקלפים במובייל */
+
+  /* שורות שחקנים/קלפים - שלא יגלשו החוצה */
+  div[class*="flex"], div[class*="items-center"] {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+
+  /* הקטנת קלפים במובייל */
   img {
-    max-width: 50px !important;
+    max-width: 45px !important;
     height: auto !important;
-  }
-  
-  /* מוודא שהטקסט לא ענק */
-  .text-4xl, .text-3xl {
-    font-size: 1.5rem !important;
+    margin: 2px !important;
   }
 }
