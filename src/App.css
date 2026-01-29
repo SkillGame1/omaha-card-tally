@@ -1,104 +1,67 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
+/* --- FORCE OVERRIDE POKER THEME --- */
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+@layer utilities {
+  /* 1. רקע כללי של כל האפליקציה */
+  body, #root, .min-h-screen, .bg-background {
+    background-color: #1e1e1e !important;
+    color: #ffffff !important;
   }
-  to {
-    transform: rotate(360deg);
+
+  /* 2. כפתורים - דריסה אגרסיבית */
+  button, 
+  .button, 
+  [role="button"],
+  button[class*="bg-"] {
+    background-color: #d94040 !important;
+    background-image: none !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3) !important;
+    text-transform: uppercase;
+    font-weight: bold;
+    opacity: 1 !important;
+  }
+
+  /* 3. שדות קלט */
+  input, select, .input {
+    background-color: #333 !important;
+    border: 1px solid #555 !important;
+    color: white !important;
+    border-radius: 6px !important;
+  }
+
+  /* 4. קלפים - מסגרת לבנה */
+  img[alt*="card"], img[src*="card"], .card-image { 
+    border: 2px solid white !important;
+    border-radius: 6px !important;
+    background: white !important;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.5) !important;
+  }
+  
+  /* הסתרת כותרות ברירת מחדל אם יש */
+  h1, h2 {
+    color: white !important;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-/* --- Skill Game Poker Theme Override --- */
-
-/* 1. רקע ופונטים */
-body, #root {
-  background-color: #1e1e1e !important;
-  color: #ffffff !important;
-  font-family: 'Assistant', sans-serif !important;
-}
-
-/* 2. כפתורים - הופך את כולם לאדום אחיד */
-button {
-  background-color: #d94040 !important;
-  color: white !important;
-  border-radius: 8px !important;
-  font-weight: bold !important;
-  border: none !important;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.3) !important;
-}
-
-button:hover {
-  background-color: #b93030 !important; /* אדום כהה יותר במעבר עכבר */
-}
-
-/* 3. שדות קלט */
-input, select {
-  background-color: #333 !important;
-  border: 1px solid #555 !important;
-  color: white !important;
-  border-radius: 6px !important;
-}
-
-/* 4. קלפים - אחידות ויזואלית */
-img[alt*="card"], .card-image { 
-  border-radius: 4px !important;
-  box-shadow: 1px 1px 5px rgba(0,0,0,0.5) !important;
-  background-color: white !important;
-}
-
-/* 5. תיקון קריטי למובייל (Mobile Fix) */
+/* 5. תיקון מובייל - הכרח לתצוגת טור */
 @media (max-width: 768px) {
-  /* מפרק את הטבלה/השורות לתצוגת עמודה */
-  .grid, .flex, table, tbody, tr {
+  /* מפרק כל שורה שמתנהגת כמו Flex */
+  div[class*="flex-row"], div[class*="grid-cols"] {
     display: flex !important;
     flex-direction: column !important;
-    width: 100% !important;
-    min-width: 0 !important; /* מונע גלישה */
+    gap: 15px !important;
   }
   
-  /* מסדר את הקלפים שלא יהיו ענקיים */
-  td, .card-container {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    gap: 5px !important;
-    width: 100% !important;
-  }
-  
+  /* מקטין את הקלפים במובייל */
   img {
-    width: 45px !important; /* גודל קלף סביר למובייל */
+    max-width: 50px !important;
     height: auto !important;
+  }
+  
+  /* מוודא שהטקסט לא ענק */
+  .text-4xl, .text-3xl {
+    font-size: 1.5rem !important;
   }
 }
