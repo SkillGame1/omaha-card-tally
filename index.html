@@ -1,30 +1,79 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- TODO: Set the document title to the name of your application -->
-    <title>מחשבון סיכויים אומהה</title>
-    <meta name="description" content="מחשבון סיכויים אומהה">
-    <meta name="author" content="Lovable" />
-
-    <!-- TODO: Update og:title to match your application name -->
-    
-    
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@Lovable" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-    <meta property="og:title" content="מחשבון סיכויים אומהה">
-  <meta name="twitter:title" content="מחשבון סיכויים אומהה">
-  <meta property="og:description" content="מחשבון סיכויים אומהה">
-  <meta name="twitter:description" content="מחשבון סיכויים אומהה">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Omaha Equity Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/pokersolver@2.1.2/pokersolver.min.js"></script>
 </head>
+<body>
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    <div class="app-header">
+        <h2>Omaha Pro Calc</h2>
+    </div>
+
+    <div class="poker-table-container">
+        
+        <div class="section-group">
+            <div class="section-title">BOARD</div>
+            <div class="cards-row" id="board-slots">
+                <div class="card-slot empty" onclick="openSelector(this)"></div>
+                <div class="card-slot empty" onclick="openSelector(this)"></div>
+                <div class="card-slot empty" onclick="openSelector(this)"></div>
+                <div class="card-slot empty" onclick="openSelector(this)"></div>
+                <div class="card-slot empty" onclick="openSelector(this)"></div>
+            </div>
+        </div>
+
+        <div class="section-group">
+            <div class="section-title">PLAYER 1</div>
+            <div class="cards-row" id="p1-slots">
+                <div class="card-slot filled" data-card="Ah"><span class="card-rank">A</span><span class="card-suit suit-h">♥</span></div>
+                <div class="card-slot filled" data-card="Kh"><span class="card-rank">K</span><span class="card-suit suit-h">♥</span></div>
+                <div class="card-slot filled" data-card="Qd"><span class="card-rank">Q</span><span class="card-suit suit-d">♦</span></div>
+                <div class="card-slot filled" data-card="Jd"><span class="card-rank">J</span><span class="card-suit suit-d">♦</span></div>
+            </div>
+            <div class="result-bar-container">
+                <div class="progress-track"><div class="progress-fill win-fill" id="p1-bar"></div></div>
+                <span class="pct-label" id="p1-pct">0%</span>
+            </div>
+        </div>
+
+        <div class="section-group">
+            <div class="section-title">PLAYER 2</div>
+            <div class="cards-row" id="p2-slots">
+                <div class="card-slot empty" onclick="openSelector(this)"></div>
+                <div class="card-slot empty" onclick="openSelector(this)"></div>
+                <div class="card-slot empty" onclick="openSelector(this)"></div>
+                <div class="card-slot empty" onclick="openSelector(this)"></div>
+            </div>
+            <div class="result-bar-container">
+                <div class="progress-track"><div class="progress-fill win-fill" id="p2-bar"></div></div>
+                <span class="pct-label" id="p2-pct">0%</span>
+            </div>
+        </div>
+
+        <div class="controls-area">
+            <div class="tie-info">Tie: <span id="tie-pct">0%</span></div>
+            <button class="btn-calc" id="calcBtn" onclick="runCalculation()">Calculate Equity</button>
+            <button class="btn-reset" onclick="resetAll()">Reset Cards</button>
+            <div id="loadingMsg">Running Simulation...</div>
+        </div>
+
+    </div>
+
+    <div id="selector-modal">
+        <div class="selector-content">
+            <div class="selector-header">
+                <span>Select Card</span>
+                <button class="close-btn" onclick="closeSelector()">&times;</button>
+            </div>
+            <div class="selector-grid" id="cardGrid">
+                </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
 </html>
